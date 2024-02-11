@@ -25,9 +25,6 @@ public class ServerWindow extends JFrame {
     JScrollPane scrollPane;
     List<ClientGUI> clientGUIList;
     private String fileName;
-    public JButton getBtnOn(){
-        return btnOn;
-    }
     public JButton getBtnOff(){
         return btnOff;
     }

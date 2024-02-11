@@ -114,24 +114,24 @@ public class ClientGUI extends JFrame{
         return addressUserpan;
     }
     private void connectServer(ServerWindow serverWindow){
-        if (!serverWindow.isOn()) {
-            isConnected = false;
-            textArea.append("Подключение не удалось\n");
-        }
-        else if (isConnected == false && serverWindow.connectUser(this) && isActivePanel()){
+
+        if (!isActivePanel()) {
+            textArea.append("Необходимо заполнить все поля ввода!\n");
+        } else if (!serverWindow.isOn()) {
+                isConnected = false;
+                textArea.append("Подключение не удалось\n");
+        } else if (!isConnected && serverWindow.connectUser(this)){
                 isConnected = true;
                 textArea.append("Вы успешно подключились!\n\n");
                 serverWindow.addText(nameField.getText() + " подключился к беседе!\n");
                 textArea.append(serverWindow.readUsingBufferedReader(serverWindow.getFileName()));
                 addressUserpan.setVisible(false);
-        } else if (!isActivePanel()){
-                textArea.append("Необходимо заполнить все поля ввода!\n");
         } else {
             textArea.append("Вы уже подключены!\n");
         }
     }
     private boolean isActivePanel(){
-        if (!nameField.getText().equals("") && !passwordField.getText().equals("") && !portField.getText().equals("") && !ipField.getText().equals(""))
+        if (!nameField.getText().isEmpty() && !passwordField.getText().isEmpty() && !portField.getText().isEmpty() && !ipField.getText().isEmpty())
             return true;
         return false;
     }
@@ -173,10 +173,10 @@ public class ClientGUI extends JFrame{
     }
 
     private void sendMessage(ServerWindow serverWindow){
-        if (!serverWindow.isOn() || isConnected == false) {
+        if (!serverWindow.isOn() || !isConnected) {
             isConnected = false;
             textArea.append("Вы отключены от сервера!\n");
-        } else if (isConnected == true && !sendFiled.getText().equals("")){
+        } else if (isConnected && !sendFiled.getText().isEmpty()){
             String msg = nameField.getText() + ": " + sendFiled.getText() + '\n';
 
             try (BufferedWriter writter = new BufferedWriter(new FileWriter(serverWindow.getFileName(), true))) {
