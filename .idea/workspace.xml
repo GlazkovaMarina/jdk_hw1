@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4beb3c39-29ad-4493-937b-69aa864995ff" name="Changes" comment="change sugar stx">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4beb3c39-29ad-4493-937b-69aa864995ff" name="Changes" comment="redeem an errors">
       <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,12 +81,21 @@
       <option name="project" value="LOCAL" />
       <updated>1707652803018</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="redeem an errors">
+      <option name="closed" value="true" />
+      <created>1707730483001</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1707730483001</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add hw1" />
     <MESSAGE value="change sugar stx" />
-    <option name="LAST_COMMIT_MESSAGE" value="change sugar stx" />
+    <MESSAGE value="redeem an errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="redeem an errors" />
   </component>
 </project>

@@ -16,11 +16,11 @@ public class ClientGUI extends JFrame{
     private static final int WINDOW_POSX = 5;
     private static final int WINDOW_POSY = 300;
     private boolean isConnected;
-    JTextArea log;
-    JTextField  ipField, portField, nameField, sendFiled;
-    JPasswordField passwordField;
-    JButton btnLogin, btnSend;
-    JPanel  addressUserPan;
+    private JTextArea log;
+    private JTextField  ipField, portField, nameField, sendFiled;
+    private JPasswordField passwordField;
+    private JButton btnLogin, btnSend;
+    private JPanel  addressUserPan;
 
     public ClientGUI(ServerWindow serverWindow){
         this.serverWindow = serverWindow;

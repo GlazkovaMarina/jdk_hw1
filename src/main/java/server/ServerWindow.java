@@ -15,11 +15,11 @@ public class ServerWindow extends JFrame {
     private static final int WINDOW_POSX = 410;
     private static final int WINDOW_POSY = 300;
     private boolean isOn;
-    JButton btnOn, btnOff;
-    JTextArea log;
-    JPanel panBottom;
-    JScrollPane scrollPane;
-    List<ClientGUI> clientGUIList;
+    private JButton btnOn, btnOff;
+    private JTextArea log;
+    private JPanel panBottom;
+    private JScrollPane scrollPane;
+    private List<ClientGUI> clientGUIList;
     public static final String LOG_PATH = "src/main/java/server/log.txt";
     public JButton getBtnOff(){
         return btnOff;
