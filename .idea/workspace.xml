@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4beb3c39-29ad-4493-937b-69aa864995ff" name="Changes" comment="add hw1">
+    <list default="true" id="4beb3c39-29ad-4493-937b-69aa864995ff" name="Changes" comment="change sugar stx">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerWindow.java" afterDir="false" />
@@ -75,11 +75,20 @@
       <option name="project" value="LOCAL" />
       <updated>1707652187793</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="change sugar stx">
+      <option name="closed" value="true" />
+      <created>1707652803018</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1707652803018</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add hw1" />
-    <option name="LAST_COMMIT_MESSAGE" value="add hw1" />
+    <MESSAGE value="change sugar stx" />
+    <option name="LAST_COMMIT_MESSAGE" value="change sugar stx" />
   </component>
 </project>

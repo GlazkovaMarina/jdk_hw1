@@ -5,10 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,38 +15,97 @@ public class ServerWindow extends JFrame {
     private static final int WINDOW_POSX = 410;
     private static final int WINDOW_POSY = 300;
     private boolean isOn;
-    JButton btnOn;
-    JButton btnOff;
-    JTextArea textArea;
+    JButton btnOn, btnOff;
+    JTextArea log;
     JPanel panBottom;
     JScrollPane scrollPane;
     List<ClientGUI> clientGUIList;
-    private String fileName;
+    public static final String LOG_PATH = "src/main/java/server/log.txt";
     public JButton getBtnOff(){
         return btnOff;
     }
     public ServerWindow() {
+        clientGUIList = new ArrayList<>();
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocation(WINDOW_POSX, WINDOW_POSY);
         setSize(WINDOW_WIDHT, WINDOW_HEIGHT);
+        setLocation(WINDOW_POSX, WINDOW_POSY);
+        setResizable(false);
+        setLocationRelativeTo(null);
         setTitle("Server");
-        createMap();
-        setVisible(true);
 
         isOn = false;
-        fileName = "src/main/java/server/log.txt";
+        createMap();
+        setVisible(true);
+    }
 
-        clientGUIList = new ArrayList<>();
+    public boolean isOn(){
+        return isOn;
+    }
+    public String getFileName(){ return LOG_PATH;}
+    public boolean connectUser(ClientGUI clientGUI){
+        if (!isOn){
+            return false;
+        }
+        appendLog(clientGUI.getUserName() + " подключился к серверу");
+        clientGUIList.add(clientGUI);
+        return true;
+    }
+
+    public String getLog() {
+        return readLog();
+    }
+    public void disconnectUser(ClientGUI clientGUI){
+        clientGUIList.remove(clientGUI);
+        if (clientGUI.isConnected()){
+            clientGUI.disconnectFromServer();
+             }
+        else {
+            appendLog(clientGUI.getUserName() + " отключен от сервера!");
+        }
+    }
+
+    public void message(String msg){
+        if (!isOn){
+            return;
+        }
+        msg += "";
+        appendLog(msg);
+        answerAll(msg);
+        saveInLog(msg);
+    }
+
+    public void answerAll(String text){
+        for (ClientGUI clientGUI: clientGUIList){
+                clientGUI.answer(text);
+        }
+    }
+
+    private void saveInLog(String text){
+        try (FileWriter writer = new FileWriter(LOG_PATH, true)){
+            writer.write(text);
+            writer.write("\n");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void createMap(){
+        log = new JTextArea(21, 30);
+        log.setEditable(false);
+        add(log);
+        add(createButtons(),BorderLayout.SOUTH);
+    }
+    private JPanel createButtons(){
         panBottom = new JPanel(new GridLayout(1,3));
         btnOn = new JButton("on");
         btnOn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!isOn) {
-                    textArea.append("Сервер запущен!\n");
+                if (isOn) {
+                    appendLog("Сервер уже был запущен");
+                } else {
+                    appendLog("Сервер запущен!");
                     isOn = true;
                 }
             }
@@ -59,61 +115,36 @@ public class ServerWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (isOn) {
-                    textArea.append("Сервер остановлен!\n");
                     isOn = false;
+                    while (!clientGUIList.isEmpty()){
+                        disconnectUser(clientGUIList.get(clientGUIList.size()-1));
+                    }
+                    appendLog("Сервер остановлен!");
+                } else{
+                    appendLog("Сервер уже был остановлен");
                 }
             }
         });
         panBottom.add(btnOn);
         panBottom.add(btnOff);
-        textArea = new JTextArea(21, 30);
-        scrollPane = new JScrollPane(textArea);
-        add(panBottom,BorderLayout.SOUTH);
-        add(scrollPane,BorderLayout.NORTH);
-        textArea.setEditable(false);
+        return panBottom;
     }
-
-    public boolean connectUser(ClientGUI clientGUI){
-        if (!isOn){
-            return false;
-        }
-        clientGUIList.add(clientGUI);
-        return true;
-    }
-
-    public static String readUsingBufferedReader(String fileName) {
-        String lines = "";
-        try {
-            File file = new File(fileName);
-            FileReader fr = new FileReader(file);
+    public static String readLog() {
+        try (FileReader fr = new FileReader(LOG_PATH)){
+            String lines = "";
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
                 lines += line + '\n';
             }
             br.close();
-            fr.close();
+            return lines;
         } catch (IOException e){
-            System.out.println(e.getMessage());
-        }
-        return lines;
-    }
-
-    public boolean isOn(){
-        return isOn;
-    }
-    public String getFileName(){ return fileName;}
-    public void addText(String text){
-        textArea.append(text);
-    }
-    public void answer(String text){
-        textArea.append(text);
-        for (ClientGUI clientGUI: clientGUIList){
-            if (clientGUI.isConnected())
-                clientGUI.answer(text);
+            e.printStackTrace();
+            return null;
         }
     }
-
-
-
+    public void appendLog(String text){
+        log.append(text + '\n');
+    }
 }
