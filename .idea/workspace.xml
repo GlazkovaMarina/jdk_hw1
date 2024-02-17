@@ -4,9 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4beb3c39-29ad-4493-937b-69aa864995ff" name="Changes" comment="redeem an errors">
+    <list default="true" id="4beb3c39-29ad-4493-937b-69aa864995ff" name="Changes" comment="add private options">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/client/ClientView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/FileStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/ServerRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/server/ServerView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/socket/Socket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/client/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/ClientGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/ServerWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/ServerWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +27,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -39,7 +51,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "kotlin-language-version-configured": "true",
-    "onboarding.tips.debug.path": "/Users/glazkova_marina/IdeaProjects/jdk_hw1/src/main/java/Main.java"
+    "onboarding.tips.debug.path": "/Users/glazkova_marina/IdeaProjects/jdk_hw1/src/main/java/Main.java",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="RunManager">
@@ -89,13 +102,22 @@
       <option name="project" value="LOCAL" />
       <updated>1707730483001</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add private options">
+      <option name="closed" value="true" />
+      <created>1707731578206</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1707731578206</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add hw1" />
     <MESSAGE value="change sugar stx" />
     <MESSAGE value="redeem an errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="redeem an errors" />
+    <MESSAGE value="add private options" />
+    <option name="LAST_COMMIT_MESSAGE" value="add private options" />
   </component>
 </project>

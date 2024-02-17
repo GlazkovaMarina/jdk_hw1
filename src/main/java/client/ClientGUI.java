@@ -1,21 +1,19 @@
 package client;
+import server.Server;
 import server.ServerWindow;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Random;
 
-public class ClientGUI extends JFrame{
-    private ServerWindow serverWindow;
+public class ClientGUI extends JFrame implements ClientView{
+    private Client client;
     private static final int WINDOW_HEIGHT = 400;
     private static final int WINDOW_WIDHT = 400;
     private static final int WINDOW_POSX = 5;
     private static final int WINDOW_POSY = 300;
-    private boolean isConnected;
+
     private JTextArea log;
     private JTextField  ipField, portField, nameField, sendFiled;
     private JPasswordField passwordField;
@@ -23,24 +21,27 @@ public class ClientGUI extends JFrame{
     private JPanel  addressUserPan;
 
     public ClientGUI(ServerWindow serverWindow){
-        this.serverWindow = serverWindow;
-        isConnected = false;
-        setLocation(WINDOW_POSX + (new Random()).nextInt(400,500), WINDOW_POSY);
-        setSize(WINDOW_WIDHT, WINDOW_HEIGHT);
-        setResizable(false);
-        setTitle("Chat client");
+        setting(serverWindow);
         createMap();
         setVisible(true);
     }
-
-    public String getUserName(){
-        return nameField.getText();
+    private void setting(ServerWindow serverWindow){
+        setLocation(WINDOW_POSX + (new Random()).nextInt(400,500), WINDOW_POSY);
+        setSize(WINDOW_WIDHT, WINDOW_HEIGHT);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        setResizable(false);
+        setTitle("Chat client");
+        client = new Client(this, serverWindow.getConnection());
     }
 
     private void createMap(){
         add(setAddressUserPanel(), BorderLayout.NORTH);
         add(setTextPanel(),BorderLayout.CENTER);
         add(setSendPanel(), BorderLayout.SOUTH);
+    }
+
+    private void hideAddressUserPanel(boolean visible){
+        addressUserPan.setVisible(visible);
     }
 
     private JScrollPane setTextPanel(){
@@ -77,27 +78,16 @@ public class ClientGUI extends JFrame{
         btnLogin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                connectServer();
+                if (isActivePanel())
+                    connectToServer();
+                else
+                    showMessage("Заполните все поля ввода!");
             }
         });
         return addressUserPan;
     }
-    private void connectServer(){
-        if (!isActivePanel()){
-            appendLog("Необходимо заполнить все поля ввода!");
-        } else if (serverWindow.connectUser(this)){
-            appendLog("Вы успешно подключились!\n");
-            addressUserPan.setVisible(false);
-            isConnected = true;
-            String log = serverWindow.getLog();
-            if (log != null){
-                appendLog(log);
-            }
-        } else {
-            appendLog("Подключение не удалось");
-        }
-    }
-    private boolean isActivePanel(){
+
+    public boolean isActivePanel(){
         if (!nameField.getText().isEmpty() && !passwordField.getText().isEmpty() && !portField.getText().isEmpty() && !ipField.getText().isEmpty())
             return true;
         return false;
@@ -138,48 +128,40 @@ public class ClientGUI extends JFrame{
         });
         return containerSend;
     }
-
     public void sendMessage(){
-        if (isConnected){
-            String text = sendFiled.getText();
-            if (!text.equals("")){
-                serverWindow.message(nameField.getText() + ": " + text);
-                sendFiled.setText("");
-            }
-            else{
-                appendLog("Введите сообщение!");
-            }
-        } else {
-            appendLog("Нет подключения к серверу");
+        String message = sendFiled.getText();
+        if (!message.isEmpty()){
+            client.sendMessage(message);
+            sendFiled.setText("");
         }
-
-    }
-
-
-    public void answer(String msg){
-        appendLog(msg);
-    }
-    public void disconnectFromServer() {
-        if (isConnected) {
-            addressUserPan.setVisible(true);
-            isConnected = false;
-            serverWindow.disconnectUser(this);
-            appendLog("Вы отключены от сервера!");
+        else{
+            showMessage("Введите сообщение!");
         }
     }
-    public boolean isConnected(){
-        return isConnected;
+    public String getUserName(){
+        return nameField.getText();
     }
-    private void appendLog(String text){
-        log.append(text + "\n");
-    }
-
     @Override
     protected void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING){
             disconnectFromServer();
         }
         super.processWindowEvent(e);
+    }
+    @Override
+    public void connectToServer() {
+        if (client.connectToServer(getUserName())){
+            hideAddressUserPanel(false);
+        }
+    }
+    @Override
+    public void disconnectFromServer() {
+            client.disconnectFromServer();
+            hideAddressUserPanel(true);
+    }
+    @Override
+    public void showMessage(String message){
+        log.append(message + "\n");
     }
 }
 
